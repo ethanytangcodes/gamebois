@@ -5,7 +5,9 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>gamebois</title>
-    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+
     <style>
         * {
             margin: 0;
@@ -14,140 +16,168 @@
         }
 
         :root {
-            --dark-gray: #1a1a1a;
-            --med-gray: #2d2d2d;
-            --light-gray: #3f3f3f;
-            --text-gray: #e0e0e0;
-            --accent-gray: #525252;
-        }
-
-        body {
-            margin: auto;
-            background-color: var(--dark-gray);
-            color: var(--text-gray);
-            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
-            font-size: 16px;
-        }
-
-        .header {
-            background-color: var(--med-gray);
-            padding: 3rem 2rem;
-            text-align: center;
-            border-bottom: 3px solid var(--accent-gray);
-        }
-
-        .header img {
-            width: 100px;
-            height: 100px;
-            image-rendering: pixelated;
-            margin-bottom: 1rem;
-        }
-
-        .header h1 {
-            font-size: 3.5rem;
-            font-weight: 700;
-            color: var(--text-gray);
-            margin-bottom: 1rem;
-            text-transform: lowercase;
-        }
-
-        .quick-links {
-            background-color: var(--med-gray);
-            padding: 1.5rem 2rem;
-            text-align: center;
-            border-bottom: 2px solid var(--accent-gray);
-        }
-
-        .quick-links a {
-            color: var(--text-gray);
-            text-decoration: none;
-            padding: 0.75rem 1.5rem;
-            margin: 0 0.5rem;
-            background-color: var(--light-gray);
-            border-radius: 6px;
-            display: inline-block;
-            transition: all 0.3s ease;
-            font-weight: 500;
-        }
-
-        .quick-links a:hover {
-            background-color: var(--accent-gray);
-            color: #fff;
-            transform: translateY(-2px);
+            --bg-main: #141414;
+            --bg-panel: #1f1f1f;
+            --bg-card: #262626;
+            --border-soft: #333;
+            --border-strong: #444;
+            --text-main: #e6e6e6;
+            --text-muted: #9a9a9a;
+            --accent: #6b6b6b;
+            --radius: 14px;
+            --radius-sm: 10px;
+            --transition: 0.25s ease;
         }
 
         html {
             scroll-behavior: smooth;
         }
 
+        body {
+            background: radial-gradient(1200px 600px at top, #1c1c1c, var(--bg-main));
+            color: var(--text-main);
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+        }
+
+        /* ---------- HEADER ---------- */
+
+        .header {
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            border-bottom: 1px solid var(--border-soft);
+            background:
+                linear-gradient(180deg, rgba(255,255,255,0.04), transparent),
+                var(--bg-panel);
+        }
+
+        .header img {
+            width: 110px;
+            height: 110px;
+            image-rendering: pixelated;
+            margin-bottom: 1.2rem;
+            border-radius: 20px;
+            box-shadow: 0 10px 30px rgba(0,0,0,0.6);
+        }
+
+        .header h1 {
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: lowercase;
+        }
+
+        /* ---------- NAV ---------- */
+
+        .quick-links {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(31,31,31,0.85);
+            backdrop-filter: blur(10px);
+            border-bottom: 1px solid var(--border-soft);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+        }
+
+        .quick-links a {
+            color: var(--text-main);
+            text-decoration: none;
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: var(--bg-card);
+            border: 1px solid var(--border-soft);
+            transition: var(--transition);
+        }
+
+        .quick-links a:hover {
+            background: var(--accent);
+            color: #fff;
+            border-color: var(--accent);
+            transform: translateY(-1px);
+        }
+
+        /* ---------- LAYOUT ---------- */
+
         .container {
-            max-width: 1400px;
+            max-width: 1500px;
             margin: 0 auto;
-            padding: 3rem 2rem;
+            padding: 3rem 2rem 5rem;
         }
 
         .section {
-            margin-bottom: 4rem;
+            margin-bottom: 4.5rem;
         }
 
         .section-header {
             display: flex;
             align-items: center;
-            gap: 1rem;
-            margin-bottom: 1.5rem;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
             padding-bottom: 1rem;
-            border-bottom: 2px solid var(--accent-gray);
+            border-bottom: 1px solid var(--border-soft);
         }
 
         .section-icon {
-            width: 48px;
-            height: 48px;
-            filter: brightness(0.9);
+            width: 44px;
+            height: 44px;
+            opacity: 0.9;
         }
 
         .section-title {
-            font-size: 2rem;
+            font-size: 1.9rem;
             font-weight: 700;
-            color: var(--text-gray);
         }
 
         .section-subtitle {
-            color: #999;
-            font-size: 0.95rem;
-            margin-top: 0.25rem;
+            font-size: 0.9rem;
+            color: var(--text-muted);
+            margin-top: 0.15rem;
         }
 
+        /* ---------- WARNING ---------- */
+
         .warning-note {
-            background-color: var(--med-gray);
-            border-left: 4px solid #ffc107;
-            padding: 1rem 1.5rem;
+            background: linear-gradient(180deg, rgba(255,193,7,0.12), rgba(255,193,7,0.05));
+            border: 1px solid rgba(255,193,7,0.35);
+            color: #ffd966;
+            padding: 0.85rem 1.1rem;
+            border-radius: var(--radius-sm);
+            font-size: 0.85rem;
             margin-bottom: 1.5rem;
-            border-radius: 4px;
-            font-size: 0.9rem;
-            color: #ffc107;
         }
+
+        /* ---------- GAMES GRID ---------- */
 
         .games-grid {
             display: grid;
-            grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-            gap: 1.5rem;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 1.4rem;
         }
 
         .game-card {
-            background-color: var(--med-gray);
-            border: 2px solid var(--accent-gray);
-            border-radius: 8px;
-            overflow: hidden;
-            transition: all 0.3s ease;
-            text-decoration: none;
-            color: var(--text-gray);
             display: block;
+            text-decoration: none;
+            color: inherit;
+            background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent),
+                        var(--bg-card);
+            border: 1px solid var(--border-soft);
+            border-radius: var(--radius);
+            overflow: hidden;
+            transition: var(--transition);
         }
 
         .game-card:hover {
-            transform: translateY(-5px);
-            border-color: var(--text-gray);
-            box-shadow: 0 8px 16px rgba(0, 0, 0, 0.6);
+            transform: translateY(-6px) scale(1.015);
+            border-color: var(--border-strong);
+            box-shadow:
+                0 12px 28px rgba(0,0,0,0.65),
+                inset 0 0 0 1px rgba(255,255,255,0.04);
         }
 
         .game-card img {
@@ -156,58 +186,53 @@
             object-fit: cover;
             image-rendering: pixelated;
             display: block;
+            background: #000;
         }
 
         .game-info {
-            padding: 1rem;
+            padding: 0.9rem 1rem 1.1rem;
         }
 
         .game-title {
             font-size: 0.95rem;
             font-weight: 600;
-            text-transform: capitalize;
             margin-bottom: 0.25rem;
+            line-height: 1.3;
         }
 
         .game-type {
-            font-size: 0.75rem;
-            color: #999;
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: var(--text-muted);
             text-transform: uppercase;
-            letter-spacing: 0.5px;
         }
 
+        /* ---------- MOBILE ---------- */
+
         @media (max-width: 768px) {
-            .header h1 {
-                font-size: 2rem;
-            }
-
-            .header img {
-                width: 80px;
-                height: 80px;
-            }
-
-            .games-grid {
-                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
-                gap: 1rem;
+            .container {
+                padding: 2rem 1.25rem 4rem;
             }
 
             .section-title {
                 font-size: 1.5rem;
             }
 
-            .container {
-                padding: 2rem 1rem;
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
             }
         }
     </style>
 </head>
+
 <body>
     <div class="header">
-        <img alt="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%233f3f3f' width='100' height='100' rx='20'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23e0e0e0' font-family='monospace' font-weight='bold'%3EGB%3C/text%3E%3C/svg%3E"/>
+        <img alt="logo" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 100 100'%3E%3Crect fill='%23333333' width='100' height='100' rx='22'/%3E%3Ctext x='50' y='65' font-size='50' text-anchor='middle' fill='%23e6e6e6' font-family='monospace' font-weight='bold'%3EGB%3C/text%3E%3C/svg%3E">
         <h1>gamebois</h1>
     </div>
 
-    <div class="quick-links" style="padding: 1rem 2rem; border-bottom: 2px solid var(--accent-gray);">
+    <div class="quick-links">
         <a href="#gb-section">Gameboy</a>
         <a href="#gbc-section">Gameboy Color</a>
         <a href="#gba-section">Gameboy Advance</a>
@@ -215,10 +240,9 @@
     </div>
 
     <div class="container">
-        <!-- Gameboy Section -->
         <div class="section" id="gb-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e0e0e0' width='48' height='48' rx='6'/%3E%3Crect fill='%232d2d2d' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E" alt="GB">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy</div>
                     <div class="section-subtitle">Classic handheld gaming experience</div>
@@ -227,10 +251,9 @@
             <div class="games-grid" id="gb-games"></div>
         </div>
 
-        <!-- Gameboy Color Section -->
         <div class="section" id="gbc-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e0e0e0' width='48' height='48' rx='6'/%3E%3Crect fill='%232d2d2d' x='9' y='15' width='30' height='18' rx='3'/%3E%3Ccircle fill='%23e0e0e0' cx='24' cy='24' r='4'/%3E%3C/svg%3E" alt="GBC">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='15' width='30' height='18' rx='3'/%3E%3Ccircle fill='%23e6e6e6' cx='24' cy='24' r='4'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy Color</div>
                     <div class="section-subtitle">Enhanced with vibrant colors</div>
@@ -239,10 +262,9 @@
             <div class="games-grid" id="gbc-games"></div>
         </div>
 
-        <!-- Gameboy Advance Section -->
         <div class="section" id="gba-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e0e0e0' width='48' height='48' rx='6'/%3E%3Crect fill='%232d2d2d' x='6' y='15' width='36' height='18' rx='3'/%3E%3C/svg%3E" alt="GBA">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='6' y='15' width='36' height='18' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy Advance</div>
                     <div class="section-subtitle">Advanced handheld gaming</div>
@@ -251,10 +273,9 @@
             <div class="games-grid" id="gba-games"></div>
         </div>
 
-        <!-- Nintendo DS Section -->
         <div class="section" id="nds-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e0e0e0' width='48' height='48' rx='6'/%3E%3Crect fill='%232d2d2d' x='9' y='6' width='30' height='15' rx='3'/%3E%3Crect fill='%232d2d2d' x='9' y='27' width='30' height='15' rx='3'/%3E%3C/svg%3E" alt="NDS">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='6' width='30' height='15' rx='3'/%3E%3Crect fill='%23262626' x='9' y='27' width='30' height='15' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Nintendo DS</div>
                     <div class="section-subtitle">Dual-screen gaming innovation</div>
@@ -265,15 +286,13 @@
             </div>
             <div class="games-grid" id="nds-games"></div>
         </div>
-
-
     </div>
 
     <script>
         const content = {"gb":["kirbys-block-ball","kirbys-star-stacker","kirbys-pinball-land","kirbys-dream-land","kirbys-dream-land-2","tetris","metroid-ii-return-of-samus","wario-land","pokemon-red","pokemon-blue","pokemon-yellow","super-mario-land","super-mario-land-2","donkey-kong","donkey-kong-land","donkey-kong-land-2","donkey-kong-land-3"],"gbc":["worms-armageddon","crystalis","cannon-fodder","wacky-races","shantae","links-awakening-dx","pokemon-crystal","pokemon-gold","pokemon-silver","metal-gear-solid","donkey-kong-country","dragon-warrior-1-and-2","dragon-warrior-3","pokemon-pinball","pokemon-trading-card-game","mega-man-xtreme","mega-man-xtreme-2","oracle-of-ages","oracle-of-seasons","wario-land-2","wario-land-3","super-mario-bros-delux"],"gba":["sonic-battle","banjo-pilot","warioware-inc","worms-world-party","super-monkey-ball-jr","pokemon-radical-red","pokemon-rocket","pokemon-sors","pokemon-unbound","link-to-the-past-four-swords","db-advanced-adventure","dbz-supersonic-warriors","dbz-legacy-of-goku-2","dbz-buus-fury","mother-3","nes-super-mario-bros","nes-the-legend-of-zelda","nes-the-adventure-of-link","nes-metroid","nes-bomberman","nes-castlevania","nes-pac-man","nes-dr-mario","nes-donkey-kong","nes-exitebike","nes-ice-climber","nes-xevious","kirby-amazing-mirror","kirby-nightmare-in-dream-land","wario-land-4","fire-emblem","fire-emblem-blinding-blade","advance-wars","advance-wars-2","sonic-advance","sonic-advance-2","sonic-advance-3","the-minish-cap","friends-of-mineral-town","mario-kart-super-circuit","mario-and-luigi-superstar-saga","pokemon-ruby","pokemon-sapphire","pokemon-emerald","pokemon-fire-red","pokemon-leaf-green","metroid-fusion","metroid-zero-mission","super-mario-bros-2","super-mario-bros-3","super-mario-world","yoshis-island"],"nds":["pokemon-heartgold","pokemon-soulsilver","animal-crossing-wild-world","kirby-canvas-curse","kirby-squeak-squad","kirby-super-star-ultra","kirby-mass-attack","mario-and-luigi-partners-in-time","mario-and-luigi-bowsers-inside-story","pokemon-diamond","pokemon-pearl","pokemon-platinum","mario-kart-ds","super-mario-64-ds","new-super-mario-bros","nintendogs-best-friends"]};
 
         function formatGameName(name) {
-            return name.split('-').map(word => 
+            return name.split('-').map(word =>
                 word.charAt(0).toUpperCase() + word.slice(1)
             ).join(' ');
         }
@@ -282,17 +301,15 @@
             const card = document.createElement('a');
             card.className = 'game-card';
             card.href = `player.html?game=${game}&type=${type}`;
-            
             card.innerHTML = `
-                <img src="./imageAssets/${type}/${game}.png" 
+                <img src="./imageAssets/${type}/${game}.png"
                      alt="${formatGameName(game)}"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 180%22%3E%3Crect fill=%22%233f3f3f%22 width=%22200%22 height=%22180%22/%3E%3Ctext x=%22100%22 y=%2290%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22%23e0e0e0%22 font-family=%22sans-serif%22%3E${formatGameName(game).substring(0, 20)}%3C/text%3E%3C/svg%3E'">
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 180%22%3E%3Crect fill=%22%23262626%22 width=%22200%22 height=%22180%22/%3E%3Ctext x=%22100%22 y=%2290%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22%23e6e6e6%22 font-family=%22sans-serif%22%3E${formatGameName(game).substring(0, 20)}%3C/text%3E%3C/svg%3E'">
                 <div class="game-info">
                     <div class="game-title">${formatGameName(game)}</div>
                     <div class="game-type">${type.toUpperCase()}</div>
                 </div>
             `;
-            
             return card;
         }
 
@@ -312,10 +329,10 @@
             if (previous) {
                 const data = JSON.parse(previous);
                 const continueLink = document.getElementById('continue-link');
+                if (!continueLink) return;
                 const link = document.createElement('a');
                 link.href = `player.html?type=${data.type}&game=${data.game}`;
                 link.textContent = '[continue playing]';
-                link.style.marginLeft = '0.5rem';
                 continueLink.appendChild(link);
             }
         }
