@@ -15,41 +15,70 @@
             box-sizing: border-box;
         }
 
-        :root {
-            --bg-main: #141414;
-            --bg-panel: #1f1f1f;
-            --bg-card: #262626;
-            --border-soft: #333;
-            --border-strong: #444;
-            --text-main: #e6e6e6;
-            --text-muted: #9a9a9a;
-            --accent: #6b6b6b;
-            --radius: 14px;
-            --radius-sm: 10px;
-            --transition: 0.25s ease;
-        }
-
         html {
             scroll-behavior: smooth;
         }
 
         body {
-            background: radial-gradient(1200px 600px at top, #1c1c1c, var(--bg-main));
-            color: var(--text-main);
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1535 50%, #2d1b4e 100%);
+            color: #e8e8f0;
             font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
             line-height: 1.5;
+            position: relative;
+            overflow-x: hidden;
         }
 
-        /* ---------- HEADER ---------- */
+        /* Cosmic Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(157, 78, 221, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(76, 201, 240, 0.12) 0%, transparent 50%);
+            z-index: -1;
+            animation: cosmicShift 20s ease-in-out infinite;
+        }
 
+        @keyframes cosmicShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Starfield */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 25% 35%, rgba(157, 78, 221, 0.8), transparent),
+                radial-gradient(1px 1px at 75% 25%, rgba(76, 201, 240, 0.8), transparent),
+                radial-gradient(1px 1px at 15% 80%, white, transparent);
+            background-size: 200% 200%;
+            animation: stars 60s linear infinite;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: -200% -200%; }
+        }
+
+        /* HEADER */
         .header {
             padding: 4rem 2rem 3rem;
             text-align: center;
-            border-bottom: 1px solid var(--border-soft);
-            background:
-                linear-gradient(180deg, rgba(255,255,255,0.04), transparent),
-                var(--bg-panel);
-            transition: var(--transition);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+            background: rgba(26, 21, 53, 0.6);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
         }
 
         .header.playing {
@@ -59,16 +88,16 @@
             align-items: center;
         }
 
-        .header img {
-            display: none;
-        }
-
         .header h1 {
             font-size: clamp(2.4rem, 5vw, 3.8rem);
             font-weight: 800;
             letter-spacing: -0.04em;
             text-transform: lowercase;
-            transition: var(--transition);
+            background: linear-gradient(90deg, #9d4edd, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
         }
 
         .header.playing h1 {
@@ -83,39 +112,38 @@
         }
 
         .close-button {
-            background: rgba(239, 68, 68, 0.15);
-            border: 1px solid rgba(239, 68, 68, 0.3);
-            color: #ef4444;
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
             padding: 0.7rem 1.5rem;
             border-radius: 999px;
             font-size: 0.9rem;
             font-weight: 600;
             cursor: pointer;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             font-family: inherit;
         }
 
         .close-button:hover {
-            background: rgba(239, 68, 68, 0.25);
-            border-color: rgba(239, 68, 68, 0.5);
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(220, 38, 38, 0.5));
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
             transform: scale(1.05);
         }
 
-        /* ---------- NAV ---------- */
-
+        /* NAV */
         .quick-links {
             position: sticky;
             top: 0;
             z-index: 10;
-            background: rgba(31,31,31,0.85);
-            backdrop-filter: blur(10px);
-            border-bottom: 1px solid var(--border-soft);
+            background: rgba(26, 21, 53, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
             padding: 0.75rem 1rem;
             display: flex;
             justify-content: center;
             gap: 0.75rem;
             flex-wrap: wrap;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .quick-links.hidden {
@@ -123,31 +151,30 @@
         }
 
         .quick-links a {
-            color: var(--text-main);
+            color: #e8e8f0;
             text-decoration: none;
             padding: 0.6rem 1.1rem;
             border-radius: 999px;
             font-size: 0.85rem;
             font-weight: 600;
-            background: var(--bg-card);
-            border: 1px solid var(--border-soft);
-            transition: var(--transition);
+            background: rgba(157, 78, 221, 0.15);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            transition: all 0.3s ease;
         }
 
         .quick-links a:hover {
-            background: var(--accent);
-            color: #fff;
-            border-color: var(--accent);
-            transform: translateY(-1px);
+            background: linear-gradient(135deg, #9d4edd, #4cc9f0);
+            border-color: #9d4edd;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+            transform: translateY(-2px);
         }
 
-        /* ---------- LAYOUT ---------- */
-
+        /* LAYOUT */
         .container {
             max-width: 1500px;
             margin: 0 auto;
             padding: 3rem 2rem 5rem;
-            transition: var(--transition);
+            transition: all 0.3s ease;
         }
 
         .container.hidden {
@@ -164,40 +191,43 @@
             gap: 1.25rem;
             margin-bottom: 1.75rem;
             padding-bottom: 1rem;
-            border-bottom: 1px solid var(--border-soft);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
         }
 
         .section-icon {
             width: 44px;
             height: 44px;
             opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(157, 78, 221, 0.6));
         }
 
         .section-title {
             font-size: 1.9rem;
             font-weight: 700;
+            background: linear-gradient(90deg, #9d4edd, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
         }
 
         .section-subtitle {
             font-size: 0.9rem;
-            color: var(--text-muted);
+            color: #b8b8c8;
             margin-top: 0.15rem;
         }
 
-        /* ---------- WARNING ---------- */
-
+        /* WARNING */
         .warning-note {
-            background: linear-gradient(180deg, rgba(255,193,7,0.12), rgba(255,193,7,0.05));
-            border: 1px solid rgba(255,193,7,0.35);
+            background: linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,193,7,0.08));
+            border: 1px solid rgba(255,193,7,0.4);
             color: #ffd966;
             padding: 0.85rem 1.1rem;
-            border-radius: var(--radius-sm);
+            border-radius: 12px;
             font-size: 0.85rem;
             margin-bottom: 1.5rem;
         }
 
-        /* ---------- GAMES GRID ---------- */
-
+        /* GAMES GRID */
         .games-grid {
             display: grid;
             grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
@@ -208,21 +238,22 @@
             display: block;
             text-decoration: none;
             color: inherit;
-            background: linear-gradient(180deg, rgba(255,255,255,0.03), transparent),
-                        var(--bg-card);
-            border: 1px solid var(--border-soft);
-            border-radius: var(--radius);
+            background: rgba(26, 21, 53, 0.6);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(157, 78, 221, 0.3);
+            border-radius: 16px;
             overflow: hidden;
-            transition: var(--transition);
+            transition: all 0.3s ease;
             cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
         }
 
         .game-card:hover {
-            transform: translateY(-6px) scale(1.015);
-            border-color: var(--border-strong);
+            transform: translateY(-8px) scale(1.02);
+            border-color: #9d4edd;
             box-shadow:
-                0 12px 28px rgba(0,0,0,0.65),
-                inset 0 0 0 1px rgba(255,255,255,0.04);
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(157, 78, 221, 0.4);
         }
 
         .game-card img {
@@ -231,7 +262,7 @@
             object-fit: cover;
             image-rendering: pixelated;
             display: block;
-            background: #000;
+            background: rgba(10, 14, 39, 0.8);
         }
 
         .game-info {
@@ -243,17 +274,18 @@
             font-weight: 600;
             margin-bottom: 0.25rem;
             line-height: 1.3;
+            color: #e8e8f0;
         }
 
         .game-type {
             font-size: 0.7rem;
             letter-spacing: 0.12em;
-            color: var(--text-muted);
+            color: #9d4edd;
             text-transform: uppercase;
+            font-weight: 600;
         }
 
-        /* ---------- GAME PLAYER ---------- */
-
+        /* GAME PLAYER */
         .game-player {
             display: none;
             width: 100%;
@@ -265,8 +297,7 @@
             display: block;
         }
 
-        /* ---------- MOBILE ---------- */
-
+        /* MOBILE */
         @media (max-width: 768px) {
             .container {
                 padding: 2rem 1.25rem 4rem;
@@ -317,7 +348,7 @@
     <div class="container" id="container">
         <div class="section" id="gb-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%239d4edd' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy</div>
                     <div class="section-subtitle">Classic handheld gaming experience</div>
@@ -328,7 +359,7 @@
 
         <div class="section" id="gbc-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='15' width='30' height='18' rx='3'/%3E%3Ccircle fill='%23e6e6e6' cx='24' cy='24' r='4'/%3E%3C/svg%3E">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%234cc9f0' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='15' width='30' height='18' rx='3'/%3E%3Ccircle fill='%234cc9f0' cx='24' cy='24' r='4'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy Color</div>
                     <div class="section-subtitle">Enhanced with vibrant colors</div>
@@ -339,7 +370,7 @@
 
         <div class="section" id="gba-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='6' y='15' width='36' height='18' rx='3'/%3E%3C/svg%3E">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%239d4edd' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='6' y='15' width='36' height='18' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Gameboy Advance</div>
                     <div class="section-subtitle">Advanced handheld gaming</div>
@@ -350,7 +381,7 @@
 
         <div class="section" id="nds-section">
             <div class="section-header">
-                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%23e6e6e6' width='48' height='48' rx='6'/%3E%3Crect fill='%23262626' x='9' y='6' width='30' height='15' rx='3'/%3E%3Crect fill='%23262626' x='9' y='27' width='30' height='15' rx='3'/%3E%3C/svg%3E">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%234cc9f0' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='6' width='30' height='15' rx='3'/%3E%3Crect fill='%231a1535' x='9' y='27' width='30' height='15' rx='3'/%3E%3C/svg%3E">
                 <div>
                     <div class="section-title">Nintendo DS</div>
                     <div class="section-subtitle">Dual-screen gaming innovation</div>
@@ -380,31 +411,21 @@
         }
 
         function openGame(game, type) {
-            // Update header
             header.classList.add('playing');
             headerTitle.textContent = formatGameName(game);
             closeButton.style.display = 'block';
-            
-            // Hide navigation and content
             quickLinks.classList.add('hidden');
             container.classList.add('hidden');
-            
-            // Show and load game
             gamePlayer.classList.add('active');
             gamePlayer.src = `player.html?game=${game}&type=${type}`;
         }
 
         function closeGame() {
-            // Reset header
             header.classList.remove('playing');
             headerTitle.textContent = 'gamebois';
             closeButton.style.display = 'none';
-            
-            // Show navigation and content
             quickLinks.classList.remove('hidden');
             container.classList.remove('hidden');
-            
-            // Hide and unload game
             gamePlayer.classList.remove('active');
             gamePlayer.src = '';
         }
@@ -416,7 +437,7 @@
             card.innerHTML = `
                 <img src="./imageAssets/${type}/${game}.png"
                      alt="${formatGameName(game)}"
-                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 180%22%3E%3Crect fill=%22%23262626%22 width=%22200%22 height=%22180%22/%3E%3Ctext x=%22100%22 y=%2290%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22%23e6e6e6%22 font-family=%22sans-serif%22%3E${formatGameName(game).substring(0, 20)}%3C/text%3E%3C/svg%3E'">
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 180%22%3E%3Crect fill=%22%231a1535%22 width=%22200%22 height=%22180%22/%3E%3Ctext x=%22100%22 y=%2290%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22%23e8e8f0%22 font-family=%22sans-serif%22%3E${formatGameName(game).substring(0, 20)}%3C/text%3E%3C/svg%3E'">
                 <div class="game-info">
                     <div class="game-title">${formatGameName(game)}</div>
                     <div class="game-type">${type.toUpperCase()}</div>
