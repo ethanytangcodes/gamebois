@@ -1,76 +1,465 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Announcement</title>
-<style>
-  /* Basic reset */
-  * {
-    margin: 0;
-    padding: 0;
-    box-sizing: border-box;
-    font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-  }
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>gamebois</title>
 
-  body {
-    height: 100vh;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    background: linear-gradient(135deg, #2c2c34, #3b2c52);
-  }
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
 
-  .announcement-container {
-    background: rgba(50, 50, 60, 0.4);
-    backdrop-filter: blur(15px);
-    -webkit-backdrop-filter: blur(15px);
-    border: 1px solid rgba(255, 255, 255, 0.1);
-    border-radius: 20px;
-    padding: 40px 60px;
-    text-align: center;
-    color: #fff;
-    box-shadow: 0 8px 32px rgba(0, 0, 0, 0.5);
-    max-width: 400px;
-  }
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
 
-  h1 {
-    font-size: 1.8rem;
-    margin-bottom: 20px;
-    color: #d3bfff;
-  }
+        html {
+            scroll-behavior: smooth;
+        }
 
-  .btn {
-    display: inline-block;
-    padding: 12px 30px;
-    font-size: 1rem;
-    font-weight: bold;
-    color: #fff;
-    background: rgba(150, 100, 255, 0.2);
-    border: 1px solid rgba(200, 150, 255, 0.3);
-    border-radius: 50px;
-    cursor: pointer;
-    transition: all 0.3s ease;
-    text-decoration: none;
-  }
+        body {
+            background: linear-gradient(135deg, #0a0e27 0%, #1a1535 50%, #2d1b4e 100%);
+            color: #e8e8f0;
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, 'Segoe UI', sans-serif;
+            line-height: 1.5;
+            position: relative;
+            overflow-x: hidden;
+        }
 
-  .btn:hover {
-    background: rgba(150, 100, 255, 0.35);
-    transform: translateY(-3px);
-  }
+        /* Cosmic Background */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: 
+                radial-gradient(ellipse at 20% 30%, rgba(157, 78, 221, 0.12) 0%, transparent 50%),
+                radial-gradient(ellipse at 80% 70%, rgba(76, 201, 240, 0.12) 0%, transparent 50%);
+            z-index: -1;
+            animation: cosmicShift 20s ease-in-out infinite;
+        }
 
-  p {
-    margin-top: 20px;
-    font-size: 0.95rem;
-    color: #e0d9ff;
-  }
-</style>
+        @keyframes cosmicShift {
+            0%, 100% { opacity: 1; transform: scale(1); }
+            50% { opacity: 0.8; transform: scale(1.1); }
+        }
+
+        /* Starfield */
+        body::after {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background-image: 
+                radial-gradient(1px 1px at 25% 35%, rgba(157, 78, 221, 0.8), transparent),
+                radial-gradient(1px 1px at 75% 25%, rgba(76, 201, 240, 0.8), transparent),
+                radial-gradient(1px 1px at 15% 80%, white, transparent);
+            background-size: 200% 200%;
+            animation: stars 60s linear infinite;
+            opacity: 0.5;
+            z-index: -1;
+        }
+
+        @keyframes stars {
+            from { background-position: 0 0; }
+            to { background-position: -200% -200%; }
+        }
+
+        /* HEADER */
+        .header {
+            padding: 4rem 2rem 3rem;
+            text-align: center;
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+            background: rgba(26, 21, 53, 0.6);
+            backdrop-filter: blur(15px);
+            transition: all 0.3s ease;
+        }
+
+        .header.playing {
+            padding: 1.5rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+        }
+
+        .header h1 {
+            font-size: clamp(2.4rem, 5vw, 3.8rem);
+            font-weight: 800;
+            letter-spacing: -0.04em;
+            text-transform: lowercase;
+            background: linear-gradient(90deg, #9d4edd, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            transition: all 0.3s ease;
+        }
+
+        .header.playing h1 {
+            font-size: 1.5rem;
+            text-align: left;
+        }
+
+        .header-left {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .close-button {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
+            border: 1px solid rgba(239, 68, 68, 0.4);
+            color: #fca5a5;
+            padding: 0.7rem 1.5rem;
+            border-radius: 999px;
+            font-size: 0.9rem;
+            font-weight: 600;
+            cursor: pointer;
+            transition: all 0.3s ease;
+            font-family: inherit;
+        }
+
+        .close-button:hover {
+            background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(220, 38, 38, 0.5));
+            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
+            transform: scale(1.05);
+        }
+
+        /* NAV */
+        .quick-links {
+            position: sticky;
+            top: 0;
+            z-index: 10;
+            background: rgba(26, 21, 53, 0.9);
+            backdrop-filter: blur(20px);
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+            padding: 0.75rem 1rem;
+            display: flex;
+            justify-content: center;
+            gap: 0.75rem;
+            flex-wrap: wrap;
+            transition: all 0.3s ease;
+        }
+
+        .quick-links.hidden {
+            display: none;
+        }
+
+        .quick-links a {
+            color: #e8e8f0;
+            text-decoration: none;
+            padding: 0.6rem 1.1rem;
+            border-radius: 999px;
+            font-size: 0.85rem;
+            font-weight: 600;
+            background: rgba(157, 78, 221, 0.15);
+            border: 1px solid rgba(157, 78, 221, 0.3);
+            transition: all 0.3s ease;
+        }
+
+        .quick-links a:hover {
+            background: linear-gradient(135deg, #9d4edd, #4cc9f0);
+            border-color: #9d4edd;
+            box-shadow: 0 0 20px rgba(157, 78, 221, 0.4);
+            transform: translateY(-2px);
+        }
+
+        /* LAYOUT */
+        .container {
+            max-width: 1500px;
+            margin: 0 auto;
+            padding: 3rem 2rem 5rem;
+            transition: all 0.3s ease;
+        }
+
+        .container.hidden {
+            display: none;
+        }
+
+        .section {
+            margin-bottom: 4.5rem;
+        }
+
+        .section-header {
+            display: flex;
+            align-items: center;
+            gap: 1.25rem;
+            margin-bottom: 1.75rem;
+            padding-bottom: 1rem;
+            border-bottom: 1px solid rgba(157, 78, 221, 0.3);
+        }
+
+        .section-icon {
+            width: 44px;
+            height: 44px;
+            opacity: 0.9;
+            filter: drop-shadow(0 0 10px rgba(157, 78, 221, 0.6));
+        }
+
+        .section-title {
+            font-size: 1.9rem;
+            font-weight: 700;
+            background: linear-gradient(90deg, #9d4edd, #4cc9f0);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .section-subtitle {
+            font-size: 0.9rem;
+            color: #b8b8c8;
+            margin-top: 0.15rem;
+        }
+
+        /* WARNING */
+        .warning-note {
+            background: linear-gradient(135deg, rgba(255,193,7,0.15), rgba(255,193,7,0.08));
+            border: 1px solid rgba(255,193,7,0.4);
+            color: #ffd966;
+            padding: 0.85rem 1.1rem;
+            border-radius: 12px;
+            font-size: 0.85rem;
+            margin-bottom: 1.5rem;
+        }
+
+        /* GAMES GRID */
+        .games-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(190px, 1fr));
+            gap: 1.4rem;
+        }
+
+        .game-card {
+            display: block;
+            text-decoration: none;
+            color: inherit;
+            background: rgba(26, 21, 53, 0.6);
+            backdrop-filter: blur(15px);
+            border: 2px solid rgba(157, 78, 221, 0.3);
+            border-radius: 16px;
+            overflow: hidden;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            box-shadow: 0 4px 20px rgba(0, 0, 0, 0.3);
+        }
+
+        .game-card:hover {
+            transform: translateY(-8px) scale(1.02);
+            border-color: #9d4edd;
+            box-shadow:
+                0 15px 40px rgba(0, 0, 0, 0.5),
+                0 0 40px rgba(157, 78, 221, 0.4);
+        }
+
+        .game-card img {
+            width: 100%;
+            height: 180px;
+            object-fit: cover;
+            image-rendering: pixelated;
+            display: block;
+            background: rgba(10, 14, 39, 0.8);
+        }
+
+        .game-info {
+            padding: 0.9rem 1rem 1.1rem;
+        }
+
+        .game-title {
+            font-size: 0.95rem;
+            font-weight: 600;
+            margin-bottom: 0.25rem;
+            line-height: 1.3;
+            color: #e8e8f0;
+        }
+
+        .game-type {
+            font-size: 0.7rem;
+            letter-spacing: 0.12em;
+            color: #9d4edd;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        /* GAME PLAYER */
+        .game-player {
+            display: none;
+            width: 100%;
+            height: calc(100vh - 120px);
+            border: none;
+        }
+
+        .game-player.active {
+            display: block;
+        }
+
+        /* MOBILE */
+        @media (max-width: 768px) {
+            .container {
+                padding: 2rem 1.25rem 4rem;
+            }
+
+            .section-title {
+                font-size: 1.5rem;
+            }
+
+            .games-grid {
+                grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+                gap: 1rem;
+            }
+
+            .header.playing {
+                flex-direction: column;
+                gap: 1rem;
+            }
+
+            .header.playing h1 {
+                font-size: 1.2rem;
+            }
+
+            .game-player {
+                height: calc(100vh - 180px);
+            }
+        }
+    </style>
 </head>
+
 <body>
-  <div class="announcement-container">
-    <h1>im scrapping this site</h1>
-    <a href="https://ubgcosmos.github.io" class="btn">new link</a>
-    <p>the link name is a bit obvious i must say</p>
-  </div>
+    <div class="header" id="header">
+        <div class="header-left">
+            <h1 id="header-title">gamebois</h1>
+        </div>
+        <button class="close-button" id="close-button" style="display: none;">Close Game</button>
+    </div>
+
+    <div class="quick-links" id="quick-links">
+        <a href="#gb-section">Gameboy</a>
+        <a href="#gbc-section">Gameboy Color</a>
+        <a href="#gba-section">Gameboy Advance</a>
+        <a href="#nds-section">Nintendo DS</a>
+    </div>
+
+    <iframe class="game-player" id="game-player"></iframe>
+
+    <div class="container" id="container">
+        <div class="section" id="gb-section">
+            <div class="section-header">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%239d4edd' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E">
+                <div>
+                    <div class="section-title">Gameboy</div>
+                    <div class="section-subtitle">Classic handheld gaming experience</div>
+                </div>
+            </div>
+            <div class="games-grid" id="gb-games"></div>
+        </div>
+
+        <div class="section" id="gbc-section">
+            <div class="section-header">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%234cc9f0' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='15' width='30' height='18' rx='3'/%3E%3Ccircle fill='%234cc9f0' cx='24' cy='24' r='4'/%3E%3C/svg%3E">
+                <div>
+                    <div class="section-title">Gameboy Color</div>
+                    <div class="section-subtitle">Enhanced with vibrant colors</div>
+                </div>
+            </div>
+            <div class="games-grid" id="gbc-games"></div>
+        </div>
+
+        <div class="section" id="gba-section">
+            <div class="section-header">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%239d4edd' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='6' y='15' width='36' height='18' rx='3'/%3E%3C/svg%3E">
+                <div>
+                    <div class="section-title">Gameboy Advance</div>
+                    <div class="section-subtitle">Advanced handheld gaming</div>
+                </div>
+            </div>
+            <div class="games-grid" id="gba-games"></div>
+        </div>
+
+        <div class="section" id="nds-section">
+            <div class="section-header">
+                <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%234cc9f0' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='6' width='30' height='15' rx='3'/%3E%3Crect fill='%231a1535' x='9' y='27' width='30' height='15' rx='3'/%3E%3C/svg%3E">
+                <div>
+                    <div class="section-title">Nintendo DS</div>
+                    <div class="section-subtitle">Dual-screen gaming innovation</div>
+                </div>
+            </div>
+            <div class="warning-note">
+                ⚠️ These games are not guaranteed to run smoothly
+            </div>
+            <div class="games-grid" id="nds-games"></div>
+        </div>
+    </div>
+
+    <script>
+        const content = {"gb":["kirbys-block-ball","kirbys-star-stacker","kirbys-pinball-land","kirbys-dream-land","kirbys-dream-land-2","tetris","metroid-ii-return-of-samus","wario-land","pokemon-red","pokemon-blue","pokemon-yellow","super-mario-land","super-mario-land-2","donkey-kong","donkey-kong-land","donkey-kong-land-2","donkey-kong-land-3"],"gbc":["worms-armageddon","crystalis","cannon-fodder","wacky-races","shantae","links-awakening-dx","pokemon-crystal","pokemon-gold","pokemon-silver","metal-gear-solid","donkey-kong-country","dragon-warrior-1-and-2","dragon-warrior-3","pokemon-pinball","pokemon-trading-card-game","mega-man-xtreme","mega-man-xtreme-2","oracle-of-ages","oracle-of-seasons","wario-land-2","wario-land-3","super-mario-bros-delux"],"gba":["sonic-battle","banjo-pilot","warioware-inc","worms-world-party","super-monkey-ball-jr","pokemon-radical-red","pokemon-rocket","pokemon-sors","pokemon-unbound","link-to-the-past-four-swords","db-advanced-adventure","dbz-supersonic-warriors","dbz-legacy-of-goku-2","dbz-buus-fury","mother-3","nes-super-mario-bros","nes-the-legend-of-zelda","nes-the-adventure-of-link","nes-metroid","nes-bomberman","nes-castlevania","nes-pac-man","nes-dr-mario","nes-donkey-kong","nes-exitebike","nes-ice-climber","nes-xevious","kirby-amazing-mirror","kirby-nightmare-in-dream-land","wario-land-4","fire-emblem","fire-emblem-blinding-blade","advance-wars","advance-wars-2","sonic-advance","sonic-advance-2","sonic-advance-3","the-minish-cap","friends-of-mineral-town","mario-kart-super-circuit","mario-and-luigi-superstar-saga","pokemon-ruby","pokemon-sapphire","pokemon-emerald","pokemon-fire-red","pokemon-leaf-green","metroid-fusion","metroid-zero-mission","super-mario-bros-2","super-mario-bros-3","super-mario-world","yoshis-island"],"nds":["pokemon-heartgold","pokemon-soulsilver","animal-crossing-wild-world","kirby-canvas-curse","kirby-squeak-squad","kirby-super-star-ultra","kirby-mass-attack","mario-and-luigi-partners-in-time","mario-and-luigi-bowsers-inside-story","pokemon-diamond","pokemon-pearl","pokemon-platinum","mario-kart-ds","super-mario-64-ds","new-super-mario-bros","nintendogs-best-friends"]};
+
+        const header = document.getElementById('header');
+        const headerTitle = document.getElementById('header-title');
+        const closeButton = document.getElementById('close-button');
+        const quickLinks = document.getElementById('quick-links');
+        const container = document.getElementById('container');
+        const gamePlayer = document.getElementById('game-player');
+
+        function formatGameName(name) {
+            return name.split('-').map(word =>
+                word.charAt(0).toUpperCase() + word.slice(1)
+            ).join(' ');
+        }
+
+        function openGame(game, type) {
+            header.classList.add('playing');
+            headerTitle.textContent = formatGameName(game);
+            closeButton.style.display = 'block';
+            quickLinks.classList.add('hidden');
+            container.classList.add('hidden');
+            gamePlayer.classList.add('active');
+            gamePlayer.src = `player.html?game=${game}&type=${type}`;
+        }
+
+        function closeGame() {
+            header.classList.remove('playing');
+            headerTitle.textContent = 'gamebois';
+            closeButton.style.display = 'none';
+            quickLinks.classList.remove('hidden');
+            container.classList.remove('hidden');
+            gamePlayer.classList.remove('active');
+            gamePlayer.src = '';
+        }
+
+        function createGameCard(game, type) {
+            const card = document.createElement('div');
+            card.className = 'game-card';
+            card.onclick = () => openGame(game, type);
+            card.innerHTML = `
+                <img src="./imageAssets/${type}/${game}.png"
+                     alt="${formatGameName(game)}"
+                     onerror="this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 200 180%22%3E%3Crect fill=%22%231a1535%22 width=%22200%22 height=%22180%22/%3E%3Ctext x=%22100%22 y=%2290%22 font-size=%2214%22 text-anchor=%22middle%22 fill=%22%23e8e8f0%22 font-family=%22sans-serif%22%3E${formatGameName(game).substring(0, 20)}%3C/text%3E%3C/svg%3E'">
+                <div class="game-info">
+                    <div class="game-title">${formatGameName(game)}</div>
+                    <div class="game-type">${type.toUpperCase()}</div>
+                </div>
+            `;
+            return card;
+        }
+
+        function loadGames() {
+            Object.keys(content).forEach(type => {
+                const containerEl = document.getElementById(`${type}-games`);
+                if (containerEl) {
+                    content[type].forEach(game => {
+                        containerEl.appendChild(createGameCard(game, type));
+                    });
+                }
+            });
+        }
+
+        closeButton.addEventListener('click', closeGame);
+
+        loadGames();
+    </script>
 </body>
 </html>
