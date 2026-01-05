@@ -78,14 +78,6 @@
             border-bottom: 1px solid rgba(157, 78, 221, 0.3);
             background: rgba(26, 21, 53, 0.6);
             backdrop-filter: blur(15px);
-            transition: all 0.3s ease;
-        }
-
-        .header.playing {
-            padding: 1.5rem 2rem;
-            display: flex;
-            justify-content: space-between;
-            align-items: center;
         }
 
         .header h1 {
@@ -97,37 +89,6 @@
             -webkit-background-clip: text;
             -webkit-text-fill-color: transparent;
             background-clip: text;
-            transition: all 0.3s ease;
-        }
-
-        .header.playing h1 {
-            font-size: 1.5rem;
-            text-align: left;
-        }
-
-        .header-left {
-            display: flex;
-            align-items: center;
-            gap: 1rem;
-        }
-
-        .close-button {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.3), rgba(220, 38, 38, 0.3));
-            border: 1px solid rgba(239, 68, 68, 0.4);
-            color: #fca5a5;
-            padding: 0.7rem 1.5rem;
-            border-radius: 999px;
-            font-size: 0.9rem;
-            font-weight: 600;
-            cursor: pointer;
-            transition: all 0.3s ease;
-            font-family: inherit;
-        }
-
-        .close-button:hover {
-            background: linear-gradient(135deg, rgba(239, 68, 68, 0.5), rgba(220, 38, 38, 0.5));
-            box-shadow: 0 0 20px rgba(239, 68, 68, 0.4);
-            transform: scale(1.05);
         }
 
         /* NAV */
@@ -143,11 +104,6 @@
             justify-content: center;
             gap: 0.75rem;
             flex-wrap: wrap;
-            transition: all 0.3s ease;
-        }
-
-        .quick-links.hidden {
-            display: none;
         }
 
         .quick-links a {
@@ -174,11 +130,6 @@
             max-width: 1500px;
             margin: 0 auto;
             padding: 3rem 2rem 5rem;
-            transition: all 0.3s ease;
-        }
-
-        .container.hidden {
-            display: none;
         }
 
         .section {
@@ -285,18 +236,6 @@
             font-weight: 600;
         }
 
-        /* GAME PLAYER */
-        .game-player {
-            display: none;
-            width: 100%;
-            height: calc(100vh - 120px);
-            border: none;
-        }
-
-        .game-player.active {
-            display: block;
-        }
-
         /* MOBILE */
         @media (max-width: 768px) {
             .container {
@@ -311,41 +250,23 @@
                 grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
                 gap: 1rem;
             }
-
-            .header.playing {
-                flex-direction: column;
-                gap: 1rem;
-            }
-
-            .header.playing h1 {
-                font-size: 1.2rem;
-            }
-
-            .game-player {
-                height: calc(100vh - 180px);
-            }
         }
     </style>
 </head>
 
 <body>
-    <div class="header" id="header">
-        <div class="header-left">
-            <h1 id="header-title">gamebois</h1>
-        </div>
-        <button class="close-button" id="close-button" style="display: none;">Close Game</button>
+    <div class="header">
+        <h1>gamebois</h1>
     </div>
 
-    <div class="quick-links" id="quick-links">
+    <div class="quick-links">
         <a href="#gb-section">Gameboy</a>
         <a href="#gbc-section">Gameboy Color</a>
         <a href="#gba-section">Gameboy Advance</a>
         <a href="#nds-section">Nintendo DS</a>
     </div>
 
-    <iframe class="game-player" id="game-player"></iframe>
-
-    <div class="container" id="container">
+    <div class="container">
         <div class="section" id="gb-section">
             <div class="section-header">
                 <img class="section-icon" src="data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' viewBox='0 0 48 48'%3E%3Crect fill='%239d4edd' width='48' height='48' rx='6'/%3E%3Crect fill='%231a1535' x='9' y='15' width='30' height='18' rx='3'/%3E%3C/svg%3E">
@@ -397,43 +318,16 @@
     <script>
         const content = {"gb":["kirbys-block-ball","kirbys-star-stacker","kirbys-pinball-land","kirbys-dream-land","kirbys-dream-land-2","tetris","metroid-ii-return-of-samus","wario-land","pokemon-red","pokemon-blue","pokemon-yellow","super-mario-land","super-mario-land-2","donkey-kong","donkey-kong-land","donkey-kong-land-2","donkey-kong-land-3"],"gbc":["worms-armageddon","crystalis","cannon-fodder","wacky-races","shantae","links-awakening-dx","pokemon-crystal","pokemon-gold","pokemon-silver","metal-gear-solid","donkey-kong-country","dragon-warrior-1-and-2","dragon-warrior-3","pokemon-pinball","pokemon-trading-card-game","mega-man-xtreme","mega-man-xtreme-2","oracle-of-ages","oracle-of-seasons","wario-land-2","wario-land-3","super-mario-bros-delux"],"gba":["sonic-battle","banjo-pilot","warioware-inc","worms-world-party","super-monkey-ball-jr","pokemon-radical-red","pokemon-rocket","pokemon-sors","pokemon-unbound","link-to-the-past-four-swords","db-advanced-adventure","dbz-supersonic-warriors","dbz-legacy-of-goku-2","dbz-buus-fury","mother-3","nes-super-mario-bros","nes-the-legend-of-zelda","nes-the-adventure-of-link","nes-metroid","nes-bomberman","nes-castlevania","nes-pac-man","nes-dr-mario","nes-donkey-kong","nes-exitebike","nes-ice-climber","nes-xevious","kirby-amazing-mirror","kirby-nightmare-in-dream-land","wario-land-4","fire-emblem","fire-emblem-blinding-blade","advance-wars","advance-wars-2","sonic-advance","sonic-advance-2","sonic-advance-3","the-minish-cap","friends-of-mineral-town","mario-kart-super-circuit","mario-and-luigi-superstar-saga","pokemon-ruby","pokemon-sapphire","pokemon-emerald","pokemon-fire-red","pokemon-leaf-green","metroid-fusion","metroid-zero-mission","super-mario-bros-2","super-mario-bros-3","super-mario-world","yoshis-island"],"nds":["pokemon-heartgold","pokemon-soulsilver","animal-crossing-wild-world","kirby-canvas-curse","kirby-squeak-squad","kirby-super-star-ultra","kirby-mass-attack","mario-and-luigi-partners-in-time","mario-and-luigi-bowsers-inside-story","pokemon-diamond","pokemon-pearl","pokemon-platinum","mario-kart-ds","super-mario-64-ds","new-super-mario-bros","nintendogs-best-friends"]};
 
-        const header = document.getElementById('header');
-        const headerTitle = document.getElementById('header-title');
-        const closeButton = document.getElementById('close-button');
-        const quickLinks = document.getElementById('quick-links');
-        const container = document.getElementById('container');
-        const gamePlayer = document.getElementById('game-player');
-
         function formatGameName(name) {
             return name.split('-').map(word =>
                 word.charAt(0).toUpperCase() + word.slice(1)
             ).join(' ');
         }
 
-        function openGame(game, type) {
-            header.classList.add('playing');
-            headerTitle.textContent = formatGameName(game);
-            closeButton.style.display = 'block';
-            quickLinks.classList.add('hidden');
-            container.classList.add('hidden');
-            gamePlayer.classList.add('active');
-            gamePlayer.src = `player.html?game=${game}&type=${type}`;
-        }
-
-        function closeGame() {
-            header.classList.remove('playing');
-            headerTitle.textContent = 'gamebois';
-            closeButton.style.display = 'none';
-            quickLinks.classList.remove('hidden');
-            container.classList.remove('hidden');
-            gamePlayer.classList.remove('active');
-            gamePlayer.src = '';
-        }
-
         function createGameCard(game, type) {
-            const card = document.createElement('div');
+            const card = document.createElement('a');
             card.className = 'game-card';
-            card.onclick = () => openGame(game, type);
+            card.href = `player.html?game=${game}&type=${type}`;
             card.innerHTML = `
                 <img src="./imageAssets/${type}/${game}.png"
                      alt="${formatGameName(game)}"
@@ -456,8 +350,6 @@
                 }
             });
         }
-
-        closeButton.addEventListener('click', closeGame);
 
         loadGames();
     </script>
